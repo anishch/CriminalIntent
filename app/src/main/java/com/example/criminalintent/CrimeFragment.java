@@ -17,8 +17,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import static android.widget.CompoundButton.*;
-
 public class CrimeFragment extends Fragment {
     private EditText mTitleField;
     private Crime mCrime;
@@ -30,27 +28,26 @@ public class CrimeFragment extends Fragment {
 
         mCrime = new Crime();
         View v = inflater.inflate(R.layout.fragment_crime, container,
-                        false);
-        //v.findViewById(R.id.crime_title);
-        mTitleField = (EditText) v.findViewById(R.id.crime_title);
+                false);
+        v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(
-                   CharSequence s, int start, int count,
-                   int after) {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count,
+                    int after) {
 
-           }
-           @Override
-           public void onTextChanged(
-                   CharSequence s, int start, int
-                   before, int count) {
-               mCrime.setTitle(s.toString());
-           }
-           @Override
-           public void afterTextChanged(Editable s)
-           {
+            }
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int
+                    before, int count) {
+                mCrime.setTitle(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
 
-           }
+            }
         });
         mDateButton = (Button)
                 v.findViewById(R.id.crime_date);
@@ -58,13 +55,13 @@ public class CrimeFragment extends Fragment {
         mDateButton.setEnabled(false);
         mSolvedCheckBox =
                 (CheckBox)v.findViewById(R.id.crime_solved);
-        mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-               @Override
-               public void onCheckedChanged(CompoundButton buttonView,
-                                boolean isChecked) {
-                   mCrime.setSolved(isChecked);
-               }
-           });
+        mSolvedCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                mCrime.setSolved(isChecked);
+            }
+        });
         FragmentManager fm = getFragmentManager();
         Fragment fragment =
                 fm.findFragmentById(R.id.fragment_container);
