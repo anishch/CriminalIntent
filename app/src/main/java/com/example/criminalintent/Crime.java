@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Crime {
-
+    //figured out how to clone, commit and push
     private UUID mId;
     private String mTitle;
     private Date mDate;
