@@ -58,6 +58,8 @@ public class CrimeFragment extends Fragment {
 
             }
         });
+        // ConcBand/PE, LIT [D], CALC, PHYSICS, ECON/GOV, STATS, BIO, FREE (FULL) {Anish}
+        // Orchestra (Full), ENG/LIT [D], CALC, PHYSICS, ECON, APES, FREE/PE, FREE/NETZERO,{Vinay}
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
             @Override
