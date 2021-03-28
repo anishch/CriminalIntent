@@ -24,47 +24,73 @@ public class CrimeFragment extends Fragment {
     private Crime mCrime;
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
+    private EditText mCOVIDViolator;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCrime = new Crime();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        mCrime = new Crime();
+        //mCrime = new Crime();
         View v = inflater.inflate(R.layout.fragment_crime, container,
-                        false);
-        //v.findViewById(R.id.crime_title);
+                false);
+        mCOVIDViolator = (EditText) v.findViewById(R.id.crime_perpetrator);
+        mCOVIDViolator.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count,
+                    int after) {
+
+            }
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int
+                    before, int count) {
+                mCrime.setTitle(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
+
+            }
+        });
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
-           @Override
-           public void beforeTextChanged(
-                   CharSequence s, int start, int count,
-                   int after) {
+            @Override
+            public void beforeTextChanged(
+                    CharSequence s, int start, int count,
+                    int after) {
 
-           }
-           @Override
-           public void onTextChanged(
-                   CharSequence s, int start, int
-                   before, int count) {
-               mCrime.setTitle(s.toString());
-           }
-           @Override
-           public void afterTextChanged(Editable s)
-           {
+            }
+            @Override
+            public void onTextChanged(
+                    CharSequence s, int start, int
+                    before, int count) {
+                mCrime.setTitle(s.toString());
+            }
+            @Override
+            public void afterTextChanged(Editable s)
+            {
 
-           }
+            }
         });
         mDateButton = (Button)
                 v.findViewById(R.id.crime_date);
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setEnabled(false);
         mSolvedCheckBox =
-                (CheckBox)v.findViewById(R.id.crime_solved);
+                (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-               @Override
-               public void onCheckedChanged(CompoundButton buttonView,
-                                boolean isChecked) {
-                   mCrime.setSolved(isChecked);
-               }
-           });
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView,
+                                         boolean isChecked) {
+                mCrime.setSolved(isChecked);
+            }
+        });
         FragmentManager fm = getFragmentManager();
         Fragment fragment =
                 fm.findFragmentById(R.id.fragment_container);
