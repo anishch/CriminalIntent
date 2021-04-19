@@ -34,6 +34,7 @@ public class CrimeFragment extends Fragment {
 
     private static final int REQUEST_DATE = 0;
     private final static int REQUEST_TIME= 1;
+    private boolean bool = false;
 
 
     private EditText mTitleField;
@@ -111,31 +112,25 @@ public class CrimeFragment extends Fragment {
                 v.findViewById(R.id.crime_date_and_time);
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setOnClickListener(new View.OnClickListener() {
-                                                   @Override
-                                                   public void onClick(View v) {
-                                                       FragmentManager manager =
-                                                               getFragmentManager();
-                                                       DatePickerFragment dialog =
-                                                               DatePickerFragment
-                                                                       .newInstance(mCrime.getDate());
-                                                       dialog.setTargetFragment(CrimeFragment.this,
-                                                               REQUEST_DATE);
-                                                       dialog.show(manager, DIALOG_DATE);
-                                                       FragmentManager manager2 =
-                                                               getFragmentManager();
-                                                       TimePickerFragment dialog2 =
-                                                               TimePickerFragment
-                                                                       .newInstance(mCrime.getTime());
-
-                                                       dialog2.setTargetFragment(CrimeFragment.this,
-                                                               REQUEST_TIME);
-                                                       dialog2.show(manager2, DIALOG_TIME);
-                                                   }
-
-                                               });
-
-        mSolvedCheckBox =
-                (CheckBox) v.findViewById(R.id.crime_solved);
+            @Override
+            public void onClick(View v) {
+                if (!bool){
+                    FragmentManager manager = getFragmentManager();
+                    DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
+                    dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                    dialog.show(manager, DIALOG_DATE);
+                    bool = true;
+                }
+                else if (bool){
+                    FragmentManager manager2 = getFragmentManager();
+                    TimePickerFragment dialog2 = TimePickerFragment.newInstance(mCrime.getTime());
+                    dialog2.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
+                    dialog2.show(manager2, DIALOG_TIME);
+                    bool = false;
+                }
+            }
+        });
+        mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
         mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
