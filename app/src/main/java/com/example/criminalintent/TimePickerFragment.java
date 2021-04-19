@@ -46,7 +46,7 @@ public class TimePickerFragment extends DialogFragment {
         Time time = (Time)
                 getArguments().getSerializable(ARG_TIME);
 
-        time.getTime();
+        //time.getTime();
 
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_time, null);
