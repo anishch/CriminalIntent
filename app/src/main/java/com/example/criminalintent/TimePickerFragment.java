@@ -3,6 +3,7 @@ package com.example.criminalintent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -17,15 +18,18 @@ import androidx.fragment.app.DialogFragment;
 
 import java.sql.Time;
 import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class TimePickerFragment extends DialogFragment {
 
-    public static final String EXTRA_DATE = "com.bignerdranch.android.criminalintent.date";
+    public static final String EXTRA_TIME = "com.bignerdranch.android.criminalintent.time";
 
     private static final String ARG_TIME = "time";
+
     private TimePicker mTimePicker;
 
     public static TimePickerFragment newInstance(Time time) {
@@ -41,14 +45,11 @@ public class TimePickerFragment extends DialogFragment {
 
         Time time = (Time)
                 getArguments().getSerializable(ARG_TIME);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(time);
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        time.getTime();
 
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.dialog_date, null);
+                .inflate(R.layout.dialog_time, null);
 
         mTimePicker = (TimePicker)
                 v.findViewById(R.id.dialog_time_picker);
@@ -71,7 +72,22 @@ public class TimePickerFragment extends DialogFragment {
                                     mTimePicker.getCurrentHour();
                             //int day =
                                     mTimePicker.getClass();
-                            Time time = new Clock(minute, hour, );
+                            Clock clock = new Clock() {
+                                @Override
+                                public ZoneId getZone() {
+                                    return null;
+                                }
+
+                                @Override
+                                public Clock withZone(ZoneId zone) {
+                                    return null;
+                                }
+
+                                @Override
+                                public Instant instant() {
+                                    return null;
+                                }
+                            };
                             sendResult(Activity.RESULT_OK, time);
                         }
                         })
@@ -79,13 +95,12 @@ public class TimePickerFragment extends DialogFragment {
 
     }
 
-    private void sendResult(int resultCode, Time
-            time) {
+    private void sendResult(int resultCode, Time time) {
         if (getTargetFragment() == null) {
             return;
         }
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_DATE, time);
+        intent.putExtra(EXTRA_TIME, time);
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 
