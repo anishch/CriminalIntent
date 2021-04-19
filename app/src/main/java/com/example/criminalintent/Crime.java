@@ -16,6 +16,7 @@ public class Crime {
     public Crime() {
         mId = UUID.randomUUID();
         mDate = new Date();
+        mTime = new Time(mDate.getTime());
     }
 
     public void setTime(int hours, int mins, int seconds){
@@ -23,6 +24,10 @@ public class Crime {
     }
     public Time getTime(){
         return mTime;
+    }
+    public void setTime(long time){
+        this.mTime.setTime(time);
+        this.mDate.setTime(time);
     }
     public UUID getId() {
         return mId;
