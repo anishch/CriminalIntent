@@ -54,6 +54,7 @@ public class TimePickerFragment extends DialogFragment {
         mTimePicker = (TimePicker)
                 v.findViewById(R.id.dialog_time_picker);
         mTimePicker.setEnabled(true);
+        mTimePicker.setIs24HourView(false);
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
@@ -70,8 +71,6 @@ public class TimePickerFragment extends DialogFragment {
                                     mTimePicker.getCurrentMinute();
                             int hour =
                                     mTimePicker.getCurrentHour();
-                            //int day =
-                                    mTimePicker.getClass();
                             Clock clock = new Clock() {
                                 @Override
                                 public ZoneId getZone() {

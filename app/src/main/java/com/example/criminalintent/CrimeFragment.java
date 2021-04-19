@@ -1,6 +1,7 @@
 package com.example.criminalintent;
 
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -19,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,13 +30,16 @@ public class CrimeFragment extends Fragment {
 
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE ="DialogDate";
+    private static final String DIALOG_TIME = "DialogTime";
 
     private static final int REQUEST_DATE = 0;
+    private final static int REQUEST_TIME= 1;
 
 
     private EditText mTitleField;
     private Crime mCrime;
     private Button mDateButton;
+    private Button mTimeButton;
     private CheckBox mSolvedCheckBox;
     private EditText mCOVIDViolator;
 
@@ -118,6 +123,22 @@ public class CrimeFragment extends Fragment {
                                                        dialog.show(manager, DIALOG_DATE);
                                                    }
                                                });
+        mTimeButton = (Button) v.findViewById(R.id.crime_time);
+        mTimeButton.setText(mCrime.getTime().toString());
+        mTimeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager =
+                        getFragmentManager();
+                TimePickerFragment dialog =
+                        TimePickerFragment
+                                .newInstance(mCrime.getTime());
+
+                dialog.setTargetFragment(CrimeFragment.this,
+                        REQUEST_TIME);
+                dialog.show(manager, DIALOG_TIME);
+            }
+        });
         mSolvedCheckBox =
                 (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
@@ -152,6 +173,10 @@ public class CrimeFragment extends Fragment {
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             mDateButton.setText(mCrime.getDate().toString());
+        }
+        if (requestCode == REQUEST_TIME){
+            Time time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+            mCrime.setTime(time.getHours(), time.getMinutes(), time.getSeconds());
         }
     }
 
