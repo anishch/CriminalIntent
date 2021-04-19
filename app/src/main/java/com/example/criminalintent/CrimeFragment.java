@@ -108,7 +108,7 @@ public class CrimeFragment extends Fragment {
             }
         });
         mDateButton = (Button)
-                v.findViewById(R.id.crime_date);
+                v.findViewById(R.id.crime_date_and_time);
         mDateButton.setText(mCrime.getDate().toString());
         mDateButton.setOnClickListener(new View.OnClickListener() {
                                                    @Override
@@ -121,24 +121,19 @@ public class CrimeFragment extends Fragment {
                                                        dialog.setTargetFragment(CrimeFragment.this,
                                                                REQUEST_DATE);
                                                        dialog.show(manager, DIALOG_DATE);
-                                                   }
-                                               });
-        mTimeButton = (Button) v.findViewById(R.id.crime_time);
-        //mTimeButton.setText(mCrime.getTime().toString());
-        mTimeButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                FragmentManager manager =
-                        getFragmentManager();
-                TimePickerFragment dialog =
-                        TimePickerFragment
-                                .newInstance(mCrime.getTime());
+                                                       FragmentManager manager2 =
+                                                               getFragmentManager();
+                                                       TimePickerFragment dialog2 =
+                                                               TimePickerFragment
+                                                                       .newInstance(mCrime.getTime());
 
-                dialog.setTargetFragment(CrimeFragment.this,
-                        REQUEST_TIME);
-                dialog.show(manager, DIALOG_TIME);
-            }
-        });
+                                                       dialog2.setTargetFragment(CrimeFragment.this,
+                                                               REQUEST_TIME);
+                                                       dialog2.show(manager2, DIALOG_TIME);
+                                                   }
+
+                                               });
+
         mSolvedCheckBox =
                 (CheckBox) v.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
