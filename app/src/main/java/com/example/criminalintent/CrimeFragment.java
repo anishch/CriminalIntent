@@ -36,6 +36,8 @@ public class CrimeFragment extends Fragment {
     private final static int REQUEST_TIME= 1;
     private boolean bool = false;
 
+    private Date date;
+
 
     private EditText mTitleField;
     private Crime mCrime;
@@ -159,14 +161,12 @@ public class CrimeFragment extends Fragment {
             return;
         }
         if (requestCode == REQUEST_DATE) {
-            Date date = (Date) data
+            date = (Date) data
                     .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
             mDateButton.setText(mCrime.getDate().toString());
         }
         if (requestCode == REQUEST_TIME){
-            Date date = (Date) data
-                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             Time time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
             date.setHours(time.getHours());
             date.setMinutes(time.getMinutes());
