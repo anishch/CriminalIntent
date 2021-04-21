@@ -20,6 +20,7 @@ public class Crime {
 
     public void setTime(int hours, int mins, int seconds){
         this.mTime = new Time(hours, mins, seconds);
+
     }
     public Time getTime(){
         return mTime;

@@ -165,8 +165,14 @@ public class CrimeFragment extends Fragment {
             mDateButton.setText(mCrime.getDate().toString());
         }
         if (requestCode == REQUEST_TIME){
+            Date date = (Date) data
+                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             Time time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-            mCrime.setTime(time.getHours(), time.getMinutes(), time.getSeconds());
+            date.setHours(time.getHours());
+            date.setMinutes(time.getMinutes());
+            date.setSeconds(time.getSeconds());
+            mCrime.setDate(date);
+            mDateButton.setText(mCrime.getDate().toString());
         }
     }
 
