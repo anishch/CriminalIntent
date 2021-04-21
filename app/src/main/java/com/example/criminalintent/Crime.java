@@ -9,14 +9,19 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
+    public int mNum;
 
     public Crime() {
         mId = UUID.randomUUID();
+        //mNum = mNum;
         mDate = new Date();
     }
 
     public UUID getId() {
         return mId;
+    }
+    public void setNum(int ints){
+        mNum = ints;
     }
     public String getTitle() {
         return mTitle;
