@@ -8,4 +8,5 @@
         name="crime_details_hint">Who does this pertain to?</string>
     <string name="crime_solved_label">Quarantined?</string>
     <string name="date_picker_title">Date of violation:</string>
+    <string name="time_picker_title">Time of violation:</string>
 </resources>

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
@@ -58,7 +59,7 @@ public class TimePickerFragment extends DialogFragment {
 
         return new AlertDialog.Builder(getActivity())
                 .setView(v)
-                .setTitle(R.string.date_picker_title).setPositiveButton(android.R.string.ok,
+                .setTitle(R.string.time_picker_title).setPositiveButton(android.R.string.ok,
                         null)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener()
@@ -99,7 +100,12 @@ public class TimePickerFragment extends DialogFragment {
             return;
         }
         Intent intent = new Intent();
-        intent.putExtra(EXTRA_TIME, time);
+        try{
+            intent.putExtra(EXTRA_TIME, time);
+        } catch (Exception e){
+            Log.d("intent_error", "Issue!!!!!");
+        }
+
         getTargetFragment().onActivityResult(getTargetRequestCode(), resultCode, intent);
     }
 
