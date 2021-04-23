@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.DatePicker;
 
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -44,6 +45,9 @@ public class DatePickerFragment extends DialogFragment {
 
         View v = LayoutInflater.from(getActivity())
                 .inflate(R.layout.dialog_date, null);
+
+        //Fragment fragment = new Fragment();
+
 
         mDatePicker = (DatePicker)
                 v.findViewById(R.id.dialog_date_picker);
