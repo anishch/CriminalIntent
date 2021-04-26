@@ -178,8 +178,8 @@ public class CrimeFragment extends Fragment {
         }
         if (requestCode == REQUEST_DATE_AND_TIME){
             date = (Date) data
-                    .getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-            Time time = (Time) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+                    .getSerializableExtra(CombinedFragment.EXTRA_DATE);
+            Time time = (Time) data.getSerializableExtra(CombinedFragment.EXTRA_TIME);
             date.setHours(time.getHours());
             date.setMinutes(time.getMinutes());
             date.setSeconds(time.getSeconds());
