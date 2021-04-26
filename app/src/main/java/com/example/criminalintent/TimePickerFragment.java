@@ -54,7 +54,7 @@ public class TimePickerFragment extends DialogFragment {
         //time.getTime();
 
         View v = LayoutInflater.from(getActivity())
-                .inflate(R.layout.dialog_time, null);
+                .inflate(R.layout.dialog_date_time_picker, null);
 
         mTimePicker = (TimePicker)
                 v.findViewById(R.id.dialog_time_picker);
