@@ -1,7 +1,6 @@
 package com.example.criminalintent;
 
 import android.app.Activity;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,12 +12,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.TimePicker;
 
 import androidx.fragment.app.Fragment;
 
 
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import java.sql.Time;
@@ -127,25 +124,6 @@ public class CrimeFragment extends Fragment {
                     e.printStackTrace();
                 }
                 dialog.show(manager, DIALOG_DATE_AND_TIME);
-                //dialog.setTarget
-                //dialog.show(manager, DIALOG_TIME);
-                //bool = true;
-
-                //bool = false;
-                /*if (!bool){
-                    FragmentManager manager = getFragmentManager();
-                    DatePickerFragment dialog = DatePickerFragment.newInstance(mCrime.getDate());
-                    dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
-                    dialog.show(manager, DIALOG_DATE);
-                    bool = true;
-                }
-                else if (bool){
-                    FragmentManager manager2 = getFragmentManager();
-                    TimePickerFragment dialog2 = TimePickerFragment.newInstance(mCrime.getTime());
-                    dialog2.setTargetFragment(CrimeFragment.this, REQUEST_TIME);
-                    dialog2.show(manager2, DIALOG_TIME);
-                    bool = false;
-                }*/
             }
         });
         mSolvedCheckBox = (CheckBox) v.findViewById(R.id.crime_solved);
@@ -186,7 +164,6 @@ public class CrimeFragment extends Fragment {
             mCrime.setDate(date);
             mDateButton.setText(mCrime.getDate().toString());
         }
-
     }
 
 
