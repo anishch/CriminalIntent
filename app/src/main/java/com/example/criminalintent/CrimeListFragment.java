@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,8 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private Button button;
+    int i = 0;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,22 @@ public class CrimeListFragment extends Fragment {
                 .findViewById(R.id.crime_recycler_view);
         mCrimeRecyclerView.setLayoutManager(new
                 LinearLayoutManager(getActivity()));
+        View thingy = view.findViewById(R.id.blank);
+        Button button = thingy.findViewById(R.id.toast_generator);
+        if (CrimeLab.get(getActivity()).getCrimes().size() != 0){
+            button.setVisibility(View.GONE);
+        }
+        button.setOnClickListener(v -> {
+
+            if (v.getId() == R.id.blank){
+                i++;
+                button.setText(i + " times clicked!");
+                Toast.makeText(getActivity(), "Button clicked!", Toast.LENGTH_SHORT).show();
+            }
+            else{
+
+            }
+        });
         updateUI();
         return view;
 
