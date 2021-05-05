@@ -30,6 +30,7 @@ public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
+    private Crime currentCrime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,8 +93,13 @@ public class CrimeListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.remove_crime:
+                CrimeLab.get(getActivity()).deleteCrime(currentCrime.getId());
+                updateSubtitle();
+                return true;
             case R.id.new_crime:
                 Crime crime = new Crime();
+                currentCrime = crime;
                 CrimeLab.get(getActivity()).addCrime(crime);
                 //Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
                 Intent intent = CrimeActivity.newIntent(getActivity(), crime.getId());
