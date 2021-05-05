@@ -25,12 +25,10 @@ public class CrimeLab {
 
     private CrimeLab(Context context) {
         mCrimes = new LinkedHashMap<>();
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("COVID Violation #" + i);
-            crime.setSolved(i % 2 == 0); // Every other one
-            mCrimes.put(crime.getId(), crime);
-        }
+    }
+
+    public void addCrime(Crime c) {
+        mCrimes.put(c.getId(), c);
     }
 
     public List<Crime> getCrimes() {
