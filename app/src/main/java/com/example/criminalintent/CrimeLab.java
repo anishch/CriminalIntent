@@ -37,8 +37,12 @@ public class CrimeLab {
 
 
     public Crime getCrime(UUID id) {
-        return mCrimes.get(id);
-        //return null;
+        if (mCrimes.containsKey(id)){
+            return mCrimes.get(id);
+        }
+        else {
+            return null;
+        }
     }
 
 }
