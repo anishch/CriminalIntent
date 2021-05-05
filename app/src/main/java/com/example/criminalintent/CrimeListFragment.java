@@ -22,6 +22,8 @@ import org.w3c.dom.Text;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
+
 import android.text.format.DateFormat;
 
 public class CrimeListFragment extends Fragment {
@@ -29,6 +31,7 @@ public class CrimeListFragment extends Fragment {
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    private UUID currentCrimeID;
     private boolean mSubtitleVisible;
 
     @Override
@@ -95,10 +98,15 @@ public class CrimeListFragment extends Fragment {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
+                currentCrimeID = crime.getId();
                 //Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
                 Intent intent = CrimeActivity.newIntent(getActivity(), crime.getId());
                 startActivity(intent);
                 updateUI();
+                return true;
+            case R.id.deleting_crime:
+                CrimeLab.get(getActivity()).deleteCrime(currentCrimeID);
+                updateSubtitle();
                 return true;
             case R.id.show_subtitle:
                 mSubtitleVisible = !mSubtitleVisible;

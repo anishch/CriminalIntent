@@ -35,6 +35,9 @@ public class CrimeLab {
         return new ArrayList<>(mCrimes.values());
     }
 
+    public void deleteCrime(UUID id) {
+        mCrimes.remove(id);
+    }
 
     public Crime getCrime(UUID id) {
         if (mCrimes.containsKey(id)){
