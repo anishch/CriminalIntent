@@ -2,9 +2,9 @@ package com.example.criminalintent;
 
 import androidx.fragment.app.Fragment;
 
-public class CrimeListActivity extends SingleFragmentActivity {
+public class ScoreListActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
-        return new CrimeListFragment();
+        return new ScoreListFragment();
     }
 }

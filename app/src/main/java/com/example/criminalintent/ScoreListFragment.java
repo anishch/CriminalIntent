@@ -1,7 +1,6 @@
 package com.example.criminalintent;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,26 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.w3c.dom.Text;
-
-import java.util.Date;
 import java.util.List;
-import android.text.format.DateFormat;
 
-public class CrimeListFragment extends Fragment {
+import static java.lang.String.valueOf;
+
+public class ScoreListFragment extends Fragment {
 
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
-    private RecyclerView mCrimeRecyclerView;
+    private RecyclerView mScoreRecyclerView;
     private CrimeAdapter mAdapter;
     private boolean mSubtitleVisible;
-    private Crime currentCrime;
+    private Score currentScore;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,11 +45,11 @@ public class CrimeListFragment extends Fragment {
                     savedInstanceState.getBoolean(SAVED_SUBTITLE_VISIBLE);
         }
         View view =
-                inflater.inflate(R.layout.fragment_crime_list,
+                inflater.inflate(R.layout.fragment_score_list,
                         container, false);
-        mCrimeRecyclerView = (RecyclerView) view
-                .findViewById(R.id.crime_recycler_view);
-        mCrimeRecyclerView.setLayoutManager(new
+        mScoreRecyclerView = (RecyclerView) view
+                .findViewById(R.id.score_recycler_view);
+        mScoreRecyclerView.setLayoutManager(new
                 LinearLayoutManager(getActivity()));
         updateUI();
         return view;
@@ -78,7 +74,7 @@ public class CrimeListFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu,
                                     MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.fragment_crime_list,
+        inflater.inflate(R.menu.fragment_score_list,
                 menu);
 
         MenuItem subtitleItem =
@@ -93,16 +89,11 @@ public class CrimeListFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.remove_crime:
-                CrimeLab.get(getActivity()).deleteCrime(currentCrime.getId());
-                updateSubtitle();
-                return true;
-            case R.id.new_crime:
-                Crime crime = new Crime();
-                currentCrime = crime;
-                CrimeLab.get(getActivity()).addCrime(crime);
-                //Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
-                Intent intent = CrimeActivity.newIntent(getActivity(), crime.getId());
+            case R.id.new_score:
+                Score score = new Score();
+                currentScore = score;
+                ScoreList.get(getActivity()).addScore(score);
+                Intent intent = ScoreActivity.newIntent(getActivity(), score.getId());
                 startActivity(intent);
                 updateUI();
                 return true;
@@ -117,10 +108,10 @@ public class CrimeListFragment extends Fragment {
     }
 
     private void updateSubtitle() {
-        CrimeLab crimeLab = CrimeLab.get(getActivity());
-        int crimeCount = crimeLab.getCrimes().size();
+        ScoreList scoreList = ScoreList.get(getActivity());
+        int scoreCount = scoreList.getScores().size();
         String subtitle =
-                getString(R.string.subtitle_format, crimeCount);
+                getString(R.string.subtitle_format, scoreCount);
 
         if (!mSubtitleVisible) {
             subtitle = null;
@@ -131,73 +122,63 @@ public class CrimeListFragment extends Fragment {
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mTitleTextView;
-        private TextView mDateTextView;
-        //private TextView mTimeTextView;
+    private class ScoreHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private TextView mScoreTextView;
         private ImageView mSolvedImageView;
 
-        private Crime mCrime;
+        private Score mScore;
 
-        public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_crime, parent, false));
+        public ScoreHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_score, parent, false));
             itemView.setOnClickListener(this);
 
-            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
-            //mTimeTextView = (TextView) itemView.findViewById(R.id.crime_time);
+            mScoreTextView = (TextView) itemView.findViewById(R.id.score_value);
             mSolvedImageView = (ImageView) itemView.findViewById(R.id.imageView);
         }
 
-        public void bind(Crime crime){
-            mCrime = crime;
-            mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(DateFormat.format("EEEE, MMM dd, yyyy, hh:mm", mCrime.getDate()));
-
-            mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
+        public void bind(Score score){
+            mScore = score;
+            mScoreTextView.setText(valueOf(mScore.getTitle()));
+            mSolvedImageView.setVisibility(score.isOut() ? View.VISIBLE : View.GONE);
         }
 
         @Override
         public void onClick(View view){
-            //Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
-            Intent intent = CrimeActivity.newIntent(getActivity(), mCrime.getId());
-            /*Intent intent =
-                    CrimePagerActivity.newIntent(getActivity(),
-                            mCrime.getId());*/
+            Intent intent = ScoreActivity.newIntent(getActivity(), mScore.getId());
             startActivity(intent);
         }
     }
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
-        private List<Crime> mCrimes;
-        public CrimeAdapter(List<Crime> crimes) {
-            mCrimes = crimes;
+    private class CrimeAdapter extends RecyclerView.Adapter<ScoreHolder> {
+        private List<Score> mScores;
+        public CrimeAdapter(List<Score> scores) {
+            mScores = scores;
         }
 
         @Override
-        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ScoreHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
-            return new CrimeHolder(layoutInflater, parent);
+            return new ScoreHolder(layoutInflater, parent);
         }
         @Override
-        public void onBindViewHolder(CrimeHolder holder, int position) {
-            Crime crime = mCrimes.get(position);
+        public void onBindViewHolder(ScoreHolder holder, int position) {
+            Score crime = mScores.get(position);
             holder.bind(crime);
         }
         @Override
         public int getItemCount() {
-            return mCrimes.size();
+            return mScores.size();
         }
 
     }
 
     private void updateUI() {
-        CrimeLab crimeLab =
-                CrimeLab.get(getActivity());
-        List<Crime> crimes = crimeLab.getCrimes();
+        ScoreList scoreList =
+                ScoreList.get(getActivity());
+        List<Score> crimes = scoreList.getScores();
         if(mAdapter == null) {
             mAdapter = new CrimeAdapter(crimes);
-            mCrimeRecyclerView.setAdapter(mAdapter);
+            mScoreRecyclerView.setAdapter(mAdapter);
         }
         else{ mAdapter.notifyDataSetChanged(); }
         updateSubtitle();

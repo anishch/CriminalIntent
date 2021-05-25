@@ -13,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends
+public class ScorePagerActivity extends
         AppCompatActivity {
 
     private static final String EXTRA_CRIME_ID =
@@ -21,42 +21,42 @@ public class CrimePagerActivity extends
 
 
     private ViewPager mViewPager;
-    private List<Crime> mCrimes;
+    private List<Score> mScores;
 
     public static Intent newIntent(Context packageContext, UUID crimeId) {
         Intent intent = new Intent(packageContext,
-                CrimePagerActivity.class);
+                ScorePagerActivity.class);
         intent.putExtra(EXTRA_CRIME_ID, crimeId);
         return intent;
     }
 
-    UUID crimeId = (UUID) getIntent()
+    UUID scoreId = (UUID) getIntent()
             .getSerializableExtra(EXTRA_CRIME_ID);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime_pager);
+        setContentView(R.layout.activity_score_pager);
         mViewPager = (ViewPager)
                 findViewById(R.id.crime_view_pager);
-        mCrimes = CrimeLab.get(this).getCrimes();
+        mScores = ScoreList.get(this).getScores();
         FragmentManager fragmentManager =
                 getSupportFragmentManager();
         mViewPager.setAdapter(new FragmentStatePagerAdapter(fragmentManager) {
                                           @Override
                                           public Fragment getItem(int position) {
-                                              Crime crime = mCrimes.get(position);
+                                              Score score = mScores.get(position);
                                               return
-                                                      CrimeFragment.newInstance(crime.getId());
+                                                      ScoreFragment.newInstance(score.getId());
                                           }
                                           @Override
                                           public int getCount() {
-                                              return mCrimes.size();
+                                              return mScores.size();
                                           }
                                       });
-        for (int i = 0; i < mCrimes.size(); i++) {
+        for (int i = 0; i < mScores.size(); i++) {
             if
-            (mCrimes.get(i).getId().equals(crimeId)) {
+            (mScores.get(i).getId().equals(scoreId)) {
                 mViewPager.setCurrentItem(i);
                 break;
             }
