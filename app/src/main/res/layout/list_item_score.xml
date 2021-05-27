@@ -7,25 +7,15 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+
     <TextView
-        android:id="@+id/crime_title"
+        android:id="@+id/score_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="7dp"
-        android:text="Crime Title"
-        app:layout_constraintBottom_toTopOf="@+id/crime_date"
-        app:layout_constraintStart_toStartOf="@+id/crime_date"></TextView>
+        android:text="Score Value"
+        ></TextView>
 
-    <TextView
-        android:id="@+id/crime_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginBottom="8dp"
-        android:text="Crime Date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></TextView>
 
     <ImageView
         android:id="@+id/imageView"
@@ -37,6 +27,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_solved" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
