@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">CricketBattingAverageCalculator</string>
-    <string name="score_title_hint">Enter your score.</string>
-    <string name="score_title_label">Score</string>
-    <string name="out_or_not_label">Out?</string>
-    <string name="new_score">New Score</string>
+    <string name="app_name">TheCovidPolice</string>
+    <string name="crime_title_hint">Write your COVID-related update.</string>
+    <string name="crime_title_label">Title</string>
+    <string
+        name="crime_details_label">Details</string>
+    <string
+        name="crime_details_hint">Who does this pertain to?</string>
+    <string name="crime_solved_label">Quarantined?</string>
+    <string name="date_picker_title">Date of violation:</string>
+    <string name="time_picker_title">Time of violation:</string>
+    <string name="new_crime">New Crime</string>
     <string name="show_subtitle">Show Subtitle</string>
     <string name="hide_subtitle">Hide Subtitle</string>
     <string name="subtitle_format">%1$d crimes</string>
